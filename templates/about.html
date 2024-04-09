@@ -1,0 +1,46 @@
+{% extends "base.html" %} <br />
+{% block title %} About Us {% endblock %} <br ? />
+
+{% block body %}
+<header id="navbar" class="nav black">
+    <nav class="main-nav container">
+        <a href="/" class="logo satisfy-regular">Hostels</a>
+        <ul>
+            <li id="home-link">
+                <a href="{{ url_for('index') }}">Home</a>
+            </li>
+            <li id="about-link">
+                <a class="active" href="{{ url_for('about') }}">About</a>
+            </li>
+            <li id="contact-link">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+        </ul>
+        {% if 'username' in session %}
+        <a href="{{ url_for('logout') }}" class="login">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="login">Login</a>
+        {% endif %}
+    </nav>
+</header>
+<div class="container mt-7">
+    <h1>About Us</h1>
+    <p>
+        Welcome to <span class="logo satisfy-regular">Hostels</span>, your go-to
+        platform for hassle-free hostel bookings worldwide! We're passionate
+        about connecting travelers with their ideal accommodations, ensuring
+        unforgettable experiences every step of the way. Whether you're a solo
+        adventurer, a budget-conscious backpacker, or a group of friends seeking
+        adventure, we've got you covered. Join us in exploring the world, one
+        hostel at a time!
+    </p>
+
+    <div class="image">
+        <img
+            src="{{ url_for('static', filename='assets/hero2.jpg') }}"
+            alt="hero 2"
+        />
+    </div>
+</div>
+
+{% endblock %}

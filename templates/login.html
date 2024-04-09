@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <head>
+            <meta charset="UTF-8" />
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            />
+            <title>login</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link
+                rel="preconnect"
+                href="https://fonts.gstatic.com"
+                crossorigin
+            />
+            <link
+                href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Satisfy&display=swap"
+                rel="stylesheet"
+            />
+            <link
+                rel="stylesheet"
+                href="{{ url_for('static', filename='style/style.css') }}"
+            />
+            <link
+                rel="shortcut icon"
+                href="{{ url_for('static', filename='assets/fav.png')  }}"
+                type="image/x-icon"
+            />
+            <script
+                src="{{ url_for('static', filename='js/main.js')  }}"
+                defer
+            ></script>
+        </head>
+    </head>
+    <body>
+        <div class="container mt-7 center">
+            <h2>Login</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% for category, message in messages %}
+            <div class="danger">{{ message }}</div>
+            {% endfor %} {% endif %} {% endwith %}
+            <!-- Login form -->
+            <form action="/login" method="POST" class="m-auto">
+                <div class="form-grp">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+
+                <div class="form-grp">
+                    <label for="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                    />
+                </div>
+
+                <input class="btn" type="submit" value="Login" />
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %} {{ hostel.name }} {% endblock %} {%
+block body %}
+<header id="navbar" class="nav black">
+    <nav class="main-nav container">
+        <a href="/" class="logo satisfy-regular">Hostels</a>
+        <ul>
+            <li id="home-link">
+                <a href="{{ url_for('index') }}">Home</a>
+            </li>
+            <li id="about-link">
+                <a href="{{ url_for('about') }}">About</a>
+            </li>
+            <li id="contact-link">
+                <a class="active" href="{{ url_for('dashboard') }}"
+                    >Dashboard</a
+                >
+            </li>
+        </ul>
+        {% if 'username' in session %}
+        <a href="{{ url_for('logout') }}" class="login">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="login">Login</a>
+        {% endif %}
+    </nav>
+</header>
+
+<div class="container mt-7">
+    <h2>Edit {{ hostel.name }}</h2>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="alert">
+        <div>
+            {% for message in messages %}
+            <p class="success">{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %} {% endwith %}
+    <div class="row">
+        <form method="POST">
+            <div class="form-grp">
+                <label for="name">Name:</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="{{ hostel.name }}"
+                    required
+                />
+            </div>
+
+            <div class="form-grp">
+                <label for="single_rooms">Number of Single Rooms:</label>
+                <input
+                    type="number"
+                    id="single_rooms"
+                    name="single_rooms"
+                    value="{{ hostel.single_rooms }}"
+                    required
+                />
+            </div>
+
+            <div class="form-grp">
+                <label for="double_rooms">Number of Double Rooms:</label>
+                <input
+                    type="number"
+                    id="double_rooms"
+                    name="double_rooms"
+                    value="{{ hostel.double_rooms }}"
+                    required
+                />
+            </div>
+
+            <div class="form-grp">
+                <label for="self_contained">Self Contained:</label>
+                <input
+                    type="checkbox"
+                    id="self_contained"
+                    name="self_contained"
+                    {%
+                    if
+                    hostel.self_contained
+                    %}checked{%
+                    endif
+                    %}
+                />
+            </div>
+
+            <div class="form-grp">
+                <label for="price">Price:</label>
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value="{{ hostel.price }}"
+                    required
+                />
+            </div>
+
+            <input class="btn" type="submit" value="Submit" />
+        </form>
+        <div>
+            <div class="image">
+                <img src="../{{ hostel.image }}" alt="{{ hostel.name }}" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

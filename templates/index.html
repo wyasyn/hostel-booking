@@ -1,0 +1,65 @@
+{% extends "base.html" %} <br />
+{% block title %} Hostels {% endblock %} <br ? />
+
+{% block body %}
+<header id="navbar" class="nav">
+    <nav class="main-nav container">
+        <a href="/" class="logo satisfy-regular">Hostels</a>
+        <ul>
+            <li id="home-link">
+                <a class="active" href="{{ url_for('index') }}">Home</a>
+            </li>
+            <li id="about-link">
+                <a href="{{ url_for('about') }}">About</a>
+            </li>
+            <li id="contact-link">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+        </ul>
+        {% if 'username' in session %}
+        <a href="{{ url_for('logout') }}" class="login">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="login">Login</a>
+        {% endif %}
+    </nav>
+</header>
+<div class="hero">
+    <div class="container">
+        <div class="hero-details">
+            <p class="sub-title">Feel the experience</p>
+            <h1>
+                Unlock Your Next Adventure: Find Your Perfect Stay with Ease!"
+            </h1>
+            <a href="#hostels-content" class="btn">Book your future</a>
+        </div>
+    </div>
+</div>
+
+{% with messages = get_flashed_messages() %} {% if messages %}
+<div class="alert">
+    <div>
+        {% for message in messages %}
+        <p class="success">{{ message }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %} {% endwith %}
+
+<div id="hostels-content" class="container">
+    <h2>Affiliated Hostels at MUBS</h2>
+
+    <div class="hostels">
+        {% for hostel in hostels %}
+        <a href="/hostel/{{ hostel.id }}" class="card">
+            <div class="details">
+                <h5 class="card-title">{{ hostel.name }}</h5>
+                <p>Shs {{ hostel.price }}</p>
+            </div>
+
+            <img src="{{ hostel.image }}" alt="{{ hostel.name }}" />
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

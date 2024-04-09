@@ -1,0 +1,73 @@
+{% extends "base.html" %} <br />
+{% block title %} Dashboard {% endblock %} <br ? />
+
+{% block body %}
+<header id="navbar" class="nav black">
+    <nav class="main-nav container">
+        <a href="/" class="logo satisfy-regular">Hostels</a>
+        <ul>
+            <li id="home-link">
+                <a href="{{ url_for('index') }}">Home</a>
+            </li>
+            <li id="about-link">
+                <a href="{{ url_for('about') }}">About</a>
+            </li>
+            <li id="contact-link">
+                <a class="active" href="{{ url_for('dashboard') }}"
+                    >Dashboard</a
+                >
+            </li>
+        </ul>
+        {% if 'username' in session %}
+        <a href="{{ url_for('logout') }}" class="login">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="login">Login</a>
+        {% endif %}
+    </nav>
+</header>
+
+<div class="container mt-7">
+    <h2>Welcome, Admin</h2>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="alert">
+        <div>
+            {% for message in messages %}
+            <p class="success">{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %} {% endwith %}
+    <div class="add" title="Add Hostel">
+        <a href="/add_hostel">
+            <img
+                src="{{ url_for('static', filename='assets/add.png')  }}"
+                alt="add"
+            />
+        </a>
+    </div>
+
+    <div class="listings">
+        {% for hostel in hostels %}
+        <article class="list">
+            <div class="img">
+                <img src="{{ hostel.image }}" alt="{{ hostel.name }}" />
+            </div>
+            <div class="details">
+                <h3>{{ hostel.name }}</h3>
+                <p>Only {{ hostel.single_rooms }} single rooms left.</p>
+            </div>
+            <div class="action">
+                <a href="/edit_hostel/{{ hostel.id }}">Edit hostel</a>
+                <form
+                    action="/delete_hostel/{{ hostel.id }}"
+                    method="post"
+                    style="display: inline"
+                >
+                    <button class="danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
